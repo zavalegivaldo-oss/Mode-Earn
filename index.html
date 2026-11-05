@@ -1,0 +1,1628 @@
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#35156f">
+<title>MODE EARN APP</title>
+
+<style>
+:root {
+  --purple:#6d35c5;
+  --dark:#28104f;
+  --yellow:#ffd447;
+  --green:#16834b;
+  --bg:#f6f4fb;
+  --text:#241d30;
+  --muted:#716b7d;
+  --border:#e8e3f0;
+  --white:#fff;
+  --radius:18px;
+  --shadow:0 12px 32px rgba(48,23,86,.08);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+.hidden{display:none!important}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(40,16,79,.97);
+  color:white;
+  box-shadow:0 4px 20px rgba(27,11,52,.16);
+}
+.topbar-inner{
+  max-width:1180px;
+  min-height:72px;
+  margin:auto;
+  padding:12px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+  font-weight:850;
+  font-size:17px;
+}
+.logo-mark{
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  color:var(--dark);
+  background:var(--yellow);
+  font-weight:900;
+}
+.top-actions,.row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:46px;
+  padding:11px 18px;
+  border:0;
+  border-radius:12px;
+  background:var(--purple);
+  color:white;
+  font-weight:750;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.18s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.48;cursor:not-allowed}
+.btn-yellow{background:var(--yellow);color:var(--dark)}
+.btn-green{background:var(--green)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--dark)}
+.btn-light{background:#f0e9fb;color:var(--dark)}
+.btn-small{min-height:38px;padding:8px 13px;font-size:14px}
+
+main{min-height:calc(100vh - 72px)}
+.container{
+  max-width:1180px;
+  margin:auto;
+  padding:30px 22px 90px;
+}
+.hero{
+  background:linear-gradient(130deg,#28104f,#6d35c5 74%,#8650d1);
+  color:white;
+  border-radius:28px;
+  padding:clamp(30px,7vw,78px);
+  margin-top:20px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  right:-100px;
+  bottom:-180px;
+  background:rgba(255,212,71,.16);
+}
+.hero-content{max-width:700px;position:relative;z-index:1}
+.eyebrow{
+  display:inline-block;
+  color:var(--yellow);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:12px;
+}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.04;margin:15px 0}
+h2{font-size:clamp(25px,3.6vw,36px);margin:0 0 12px;color:var(--dark)}
+h3{margin:0 0 8px;color:var(--dark)}
+p{line-height:1.65}
+.hero p{color:#eee7fa;max-width:630px;font-size:17px}
+.section{margin-top:42px}
+.section-heading{margin-bottom:18px}
+.section-heading p{color:var(--muted);margin:5px 0 0}
+.grid{display:grid;gap:16px}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+.feature-icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#f0e9fb;
+  font-size:22px;
+  margin-bottom:14px;
+}
+.muted{color:var(--muted)}
+.notice{
+  padding:14px 16px;
+  border-radius:12px;
+  background:#fff8df;
+  border:1px solid #f4df91;
+  color:#624d08;
+  font-size:14px;
+}
+.notice.info{background:#f2ecfc;border-color:#dfd1f6;color:#41236f}
+.notice.success{background:#eaf8ef;border-color:#c6ead1;color:#155d36}
+.notice.error{background:#fff0ef;border-color:#f2c7c3;color:#812c24}
+
+.page{display:none}
+.page.active{display:block}
+.page-title{margin:12px 0 24px}
+.form-card{max-width:720px;margin:26px auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+.field.full{grid-column:1/-1}
+label{color:var(--dark);font-weight:700;font-size:14px}
+input,select,textarea{
+  width:100%;
+  min-height:46px;
+  padding:11px 13px;
+  border:1px solid #dcd5e7;
+  border-radius:11px;
+  background:white;
+  color:var(--text);
+  outline:none;
+}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px #6d35c51c;
+}
+.progress{
+  height:8px;
+  background:#ece7f3;
+  border-radius:20px;
+  overflow:hidden;
+  margin:18px 0 8px;
+}
+.progress>span{
+  display:block;
+  height:100%;
+  background:var(--purple);
+  transition:width .25s ease;
+}
+.step-label{font-size:13px;color:var(--muted)}
+.steps{display:flex;gap:8px;margin:18px 0 22px}
+.step-dot{height:6px;flex:1;border-radius:8px;background:#e6e0ef}
+.step-dot.done{background:var(--purple)}
+.check-list{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.check-item{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+}
+.check-item input{width:18px;min-height:auto;accent-color:var(--purple)}
+.summary-list{display:grid;gap:10px}
+.summary-line{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  border-bottom:1px solid var(--border);
+  padding:9px 0;
+}
+.summary-line strong{text-align:right}
+.form-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:22px;
+}
+
+.app-shell{
+  display:grid;
+  grid-template-columns:230px minmax(0,1fr);
+  gap:22px;
+}
+.sidebar{
+  align-self:start;
+  position:sticky;
+  top:92px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:12px;
+  box-shadow:var(--shadow);
+}
+.nav-link{
+  width:100%;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:#514a5c;
+  padding:12px;
+  border-radius:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.nav-link:hover,.nav-link.selected{
+  background:#f1eafb;
+  color:var(--dark);
+}
+.dashboard-content{min-width:0}
+.balance-card{
+  background:linear-gradient(130deg,var(--dark),var(--purple));
+  color:white;
+  border-radius:20px;
+  padding:24px;
+  margin-bottom:16px;
+}
+.balance-card h2{color:white;font-size:34px;margin:5px 0}
+.balance-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+.balance-stat{
+  background:rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:13px;
+}
+.balance-stat small{color:#e6d9f6;display:block;margin-bottom:5px}
+.quick-actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.quick-action{
+  min-height:90px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:white;
+  cursor:pointer;
+  color:var(--dark);
+  font-weight:750;
+  padding:14px;
+  text-align:left;
+}
+.quick-action span{display:block;font-size:21px;margin-bottom:8px}
+.empty-state{text-align:center;padding:34px 20px}
+.empty-state .symbol{font-size:38px;margin-bottom:10px}
+.table-wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{
+  padding:13px 10px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:14px;
+}
+th{color:var(--muted);font-weight:700}
+.badge{
+  display:inline-block;
+  background:#f1eafb;
+  color:var(--dark);
+  padding:5px 9px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:750;
+}
+.faq details{padding:15px 0;border-bottom:1px solid var(--border)}
+.faq summary{cursor:pointer;color:var(--dark);font-weight:750}
+footer{background:var(--dark);color:#eee7fa;padding:28px 20px;text-align:center}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:10001;
+  background:var(--dark);
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  max-width:360px;
+}
+
+.processing-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:var(--dark);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  padding:25px;
+}
+.spinner{
+  width:55px;
+  height:55px;
+  border:5px solid #ffffff35;
+  border-top-color:var(--yellow);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CHECKOUT */
+
+.checkout-card{
+  max-width:650px;
+  margin:35px auto;
+}
+.checkout-logo{
+  width:68px;
+  height:68px;
+  display:grid;
+  place-items:center;
+  border-radius:20px;
+  background:var(--yellow);
+  color:var(--dark);
+  font-size:24px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+.checkout-price{
+  background:linear-gradient(130deg,var(--dark),var(--purple));
+  color:white;
+  padding:25px;
+  border-radius:17px;
+  margin:20px 0;
+}
+.checkout-price small{color:#e9def7}
+.checkout-price strong{
+  display:block;
+  font-size:clamp(30px,7vw,43px);
+  margin-top:7px;
+}
+.checkout-detail{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.checkout-actions{
+  display:grid;
+  gap:12px;
+  margin-top:22px;
+}
+.checkout-actions .btn{width:100%}
+.pin-box{
+  max-width:360px;
+  margin:20px auto;
+  text-align:center;
+}
+.pin-input{
+  text-align:center;
+  font-size:25px;
+  letter-spacing:12px;
+  font-weight:800;
+}
+.checkout-lock{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  color:var(--green);
+  font-size:13px;
+  font-weight:700;
+  margin-top:14px;
+}
+
+@media(max-width:820px){
+  .grid-3{grid-template-columns:1fr 1fr}
+  .app-shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .quick-actions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .topbar-inner{padding:10px 14px}
+  .brand{font-size:14px}
+  .top-actions .btn{padding:8px 10px;font-size:12px}
+  .container{padding:18px 14px 40px}
+  .hero{border-radius:20px;padding:30px 23px}
+  .grid-3,.grid-2,.form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .check-list{grid-template-columns:1fr}
+  .balance-stats{grid-template-columns:1fr}
+  .form-actions{flex-wrap:wrap}
+  .form-actions .btn{flex:1}
+  .card{padding:18px}
+  .hide-mobile{display:none}
+  .checkout-card{margin:15px auto}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="brand" data-page="home">
+      <span class="logo-mark">ME</span>
+      <span>MODE EARN APP</span>
+    </button>
+
+    <div class="top-actions" id="header-actions">
+      <button class="btn btn-small" data-page="login">Entrar</button>
+      <button class="btn btn-yellow btn-small" data-page="signup">Criar conta</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- INÍCIO -->
+
+<section id="home" class="page active">
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Bem-vindo à MODE EARN APP</span>
+      <h1>Transforme o seu tempo em oportunidades.</h1>
+      <p>Descubra atividades digitais, consulte campanhas disponíveis e acompanhe o estado das suas tarefas e recompensas num só lugar.</p>
+
+      <div class="row">
+        <button class="btn btn-yellow" data-page="signup">Criar a minha conta</button>
+        <button class="btn btn-outline" style="color:white;border-color:#ffffff75" data-page="login">Já tenho conta</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-heading">
+      <h2>Uma plataforma simples de acompanhar</h2>
+      <p>As atividades e recompensas dependem de campanhas reais e da respetiva validação.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <div class="feature-icon">▶</div>
+        <h3>Atividades digitais</h3>
+        <p class="muted">Consulte vídeos, anúncios e outras atividades quando estiverem disponíveis.</p>
+      </article>
+
+      <article class="card">
+        <div class="feature-icon">✓</div>
+        <h3>Validação transparente</h3>
+        <p class="muted">Acompanhe o estado das atividades submetidas e das recompensas aprovadas.</p>
+      </article>
+
+      <article class="card">
+        <div class="feature-icon">◎</div>
+        <h3>Gestão da conta</h3>
+        <p class="muted">Consulte o seu perfil, notificações e histórico num painel organizado.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading"><h2>Como funciona</h2></div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <span class="badge">01</span>
+        <h3 style="margin-top:12px">Crie a sua conta</h3>
+        <p class="muted">Preencha os dados necessários e selecione o seu país.</p>
+      </article>
+
+      <article class="card">
+        <span class="badge">02</span>
+        <h3 style="margin-top:12px">Consulte atividades</h3>
+        <p class="muted">Veja as instruções, condições e disponibilidade de cada atividade.</p>
+      </article>
+
+      <article class="card">
+        <span class="badge">03</span>
+        <h3 style="margin-top:12px">Acompanhe o estado</h3>
+        <p class="muted">As recompensas só são confirmadas após validação real.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section faq">
+    <div class="section-heading"><h2>Perguntas frequentes</h2></div>
+    <div class="card">
+      <details>
+        <summary>As recompensas são garantidas?</summary>
+        <p class="muted">Não. A existência e o valor das recompensas dependem de campanhas disponíveis e da validação das atividades.</p>
+      </details>
+
+      <details>
+        <summary>Como são confirmados os pagamentos?</summary>
+        <p class="muted">A confirmação deve ser recebida do fornecedor de pagamentos através de uma integração segura.</p>
+      </details>
+
+      <details>
+        <summary>O que acontece se não houver atividades?</summary>
+        <p class="muted">A página apresenta que não existem atividades disponíveis.</p>
+      </details>
+    </div>
+  </section>
+
+</div>
+<footer>© <span class="year"></span> MODE EARN APP</footer>
+</section>
+
+<!-- CADASTRO -->
+
+<section id="signup" class="page">
+<div class="container">
+<div class="card form-card">
+
+  <span class="eyebrow" style="color:var(--purple)">Criar conta</span>
+  <h2 class="page-title">Vamos começar</h2>
+
+  <div class="progress">
+    <span id="signup-progress" style="width:20%"></span>
+  </div>
+
+  <div class="step-label" id="step-label">Etapa 1 de 5</div>
+
+  <div class="steps">
+    <span class="step-dot done"></span>
+    <span class="step-dot"></span>
+    <span class="step-dot"></span>
+    <span class="step-dot"></span>
+    <span class="step-dot"></span>
+  </div>
+
+  <form id="signup-form">
+
+    <div class="signup-step" data-step="1">
+      <h3>Seja bem-vindo à MODE EARN APP</h3>
+      <p class="muted">Crie a sua conta para consultar atividades disponíveis e gerir o seu perfil.</p>
+      <div class="notice info">O cadastro será encaminhado por etapas. Cada etapa será processada antes de avançar.</div>
+    </div>
+
+    <div class="signup-step hidden" data-step="2">
+      <h3>Os seus dados pessoais</h3>
+
+      <div class="field">
+        <label for="fullName">Nome completo</label>
+        <input id="fullName" name="fullName" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="username">Nome de utilizador</label>
+        <input id="username" name="username" autocomplete="username" minlength="3" required>
+      </div>
+
+      <div class="field">
+        <label for="email">Endereço de e-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="password">Palavra-passe</label>
+        <input id="password" name="password" type="password" minlength="8" required>
+      </div>
+
+      <div class="field">
+        <label for="confirmPassword">Confirmar palavra-passe</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" minlength="8" required>
+      </div>
+    </div>
+
+    <div class="signup-step hidden" data-step="3">
+      <h3>Segurança e país</h3>
+      <p class="muted">Defina o seu PIN pessoal de seis dígitos e escolha o seu país.</p>
+
+      <div class="field">
+        <label for="accessCode">Criar PIN de seis dígitos</label>
+        <input id="accessCode" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" required>
+      </div>
+
+      <div class="field">
+        <label for="confirmCode">Confirmar PIN</label>
+        <input id="confirmCode" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" required>
+      </div>
+
+      <div class="field">
+        <label for="country">País</label>
+        <select id="country" required>
+          <option value="">Selecione o seu país</option>
+     
+          <option value="AO">🇦🇴 Angola</option>
+          <option value="PT">🇵🇹 Portugal</option>
+          <option value="BR">🇧🇷 Brasil</option>
+          <option value="ZA">🇿🇦 África do Sul</option>
+          <option value="US">🇺🇸 Estados Unidos</option>
+          <option value="GB">🇬🇧 Reino Unido</option>
+          <option value="MZ">🇲🇿 Moçambique</option>
+          <option value="KE">🇰🇪 Quénia</option>
+        </select>
+      </div>
+
+      <div class="notice info" id="country-note">
+        O seu país determina a moeda e as opções de pagamento.
+      </div>
+    </div>
+
+    <div class="signup-step hidden" data-step="4">
+      <h3>Que atividades deseja consultar?</h3>
+      <p class="muted">Pode selecionar mais do que uma opção.</p>
+
+      <div class="check-list">
+        <label class="check-item"><input type="checkbox" name="interest" value="Vídeos"> Assistir a vídeos</label>
+        <label class="check-item"><input type="checkbox" name="interest" value="Anúncios"> Visualizar anúncios</label>
+        <label class="check-item"><input type="checkbox" name="interest" value="Aplicações"> Avaliar aplicações</label>
+        <label class="check-item"><input type="checkbox" name="interest" value="Perguntas"> Responder a perguntas</label>
+        <label class="check-item"><input type="checkbox" name="interest" value="Pesquisas"> Participar em pesquisas</label>
+        <label class="check-item"><input type="checkbox" name="interest" value="Tarefas"> Pequenas tarefas digitais</label>
+      </div>
+    </div>
+
+    <div class="signup-step hidden" data-step="5">
+      <h3>Reveja os seus dados</h3>
+
+      <div class="summary-list">
+        <div class="summary-line"><span>Nome</span><strong id="review-name">—</strong></div>
+        <div class="summary-line"><span>Utilizador</span><strong id="review-username">—</strong></div>
+        <div class="summary-line"><span>E-mail</span><strong id="review-email">—</strong></div>
+        <div class="summary-line"><span>País</span><strong id="review-country">—</strong></div>
+        <div class="summary-line"><span>Moeda</span><strong id="review-currency">—</strong></div>
+        <div class="summary-line"><span>Preço de acesso</span><strong id="review-price">—</strong></div>
+      </div>
+
+      <p class="muted">Confirme os dados antes de continuar para o pagamento.</p>
+
+      <div class="notice">
+        A conta permanece pendente até à confirmação efetiva do pagamento.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-outline hidden" id="signup-back">Voltar</button>
+      <button type="button" class="btn" id="signup-next">Começar agora</button>
+    </div>
+
+  </form>
+</div>
+</div>
+</section>
+
+<!-- LOGIN: SOMENTE PIN -->
+
+<section id="login" class="page">
+<div class="container">
+<div class="card form-card">
+
+  <h2>Entrar na sua conta</h2>
+  <p class="muted">Introduza o seu PIN de acesso para continuar.</p>
+
+  <form id="login-form">
+    <div class="pin-box">
+      <div class="feature-icon" style="margin:0 auto 16px">🔐</div>
+      <div class="field">
+        <label for="login-pin">PIN de seis dígitos</label>
+        <input
+          id="login-pin"
+          class="pin-input"
+          type="password"
+          inputmode="numeric"
+          pattern="[0-9]{6}"
+          maxlength="6"
+          autocomplete="off"
+          placeholder="••••••"
+          required
+        >
+      </div>
+      <p class="muted" style="font-size:13px">O acesso de demonstração utiliza o PIN definido para esta versão.</p>
+    </div>
+
+    <button class="btn" type="submit" style="width:100%">Continuar</button>
+
+    <button class="btn btn-outline" type="button" data-page="support" style="width:100%;margin-top:10px">
+      Recuperar acesso
+    </button>
+  </form>
+
+  <p class="muted" style="font-size:13px;margin-top:18px">
+    Esta versão é uma demonstração. A autenticação real deve ser validada num servidor seguro.
+  </p>
+
+</div>
+</div>
+</section>
+
+<!-- CHECKOUT LOCAL -->
+
+<section id="checkout" class="page">
+<div class="container">
+
+  <div class="card checkout-card">
+
+    <div class="checkout-logo">ME</div>
+
+    <span class="eyebrow" style="color:var(--purple)">MODE EARN APP</span>
+    <h2> acesso</h2>
+    <p class="muted">Revise os dados do pagamento antes de continuar para equipa externo.</p>
+
+    <div class="checkout-price">
+      <small>Valor de acesso para Moçambique</small>
+      <strong>350,00 MZN</strong>
+      <small></small>
+    </div>
+
+    <div class="checkout-detail">
+      <span>Plataforma</span>
+      <strong>MODE EARN APP</strong>
+    </div>
+
+    <div class="checkout-detail">
+      <span>País selecionado</span>
+      <strong id="checkout-country">Moçambique</strong>
+    </div>
+
+    <div class="checkout-detail">
+      <span>Moeda</span>
+      <strong id="checkout-currency">MZN</strong>
+    </div>
+
+    <div class="checkout-detail">
+      <span>Estado da conta</span>
+      <strong id="checkout-status">Pendente</strong>
+    </div>
+
+    <div class="notice info" style="margin-top:18px">
+      Ao continuar, será encaminhado para a página externa da equipa de pagamento. O pagamento só será considerado confirmado quando o fornecedor o confirmar.
+    </div>
+
+    <div class="checkout-actions">
+      <button class="btn btn-green" id="continue-payment">
+        Continuar a sua conta
+      </button>
+
+      <button class="btn btn-outline" id="exit-checkout">
+        Sair
+      </button>
+    </div>
+
+    <div class="checkout-lock">
+      <span>🔒</span>
+      <span>Conta protegida pelo respetivo serviço.</span>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- APLICAÇÃO -->
+
+<section id="app" class="page">
+<div class="container">
+
+<div class="app-shell">
+
+<aside class="sidebar">
+  <button class="nav-link selected" data-view="dashboard">🏠 Início</button>
+  <button class="nav-link" data-view="videos">▶️ Vídeos</button>
+  <button class="nav-link" data-view="ads">📣 Anúncios</button>
+  <button class="nav-link" data-view="tasks">✓ Tarefas</button>
+  <button class="nav-link" data-view="rewards">💰 Recompensas</button>
+  <button class="nav-link" data-view="withdraw">↗ Levantamentos</button>
+  <button class="nav-link" data-view="history">◷ Histórico</button>
+  <button class="nav-link" data-view="profile">👤 Perfil</button>
+  <button class="nav-link" data-view="notifications">🔔 Notificações</button>
+  <button class="nav-link" data-view="support">❔ Ajuda e suporte</button>
+  <button class="nav-link" data-view="settings">⚙️ Definições</button>
+  <button class="nav-link" data-view="admin">🛡️ Administração</button>
+</aside>
+
+<div class="dashboard-content">
+
+<div class="notice info" style="margin-bottom:16px">
+  Bem-vindo ao painel MODE EARN APP.
+</div>
+
+<section class="app-view" id="view-dashboard">
+  <h2>Olá, bem-vindo!</h2>
+  <p class="muted">Acompanhe atividades e informações da sua conta.</p>
+
+  <div class="balance-card">
+    <span>Saldo disponível</span>
+    <h2>$0,00 USD</h2>
+    <span>Valor local: não calculado</span>
+
+    <div class="balance-stats">
+      <div class="balance-stat">
+        <small>Pendente</small>
+        <strong>$0,00 USD</strong>
+      </div>
+
+      <div class="balance-stat">
+        <small>Recompensas confirmadas</small>
+        <strong>$0,00 USD</strong>
+      </div>
+
+      <div class="balance-stat">
+        <small>Atividades concluídas</small>
+        <strong>0</strong>
+      </div>
+    </div>
+  </div>
+
+  <h3>Ações rápidas</h3>
+
+  <div class="quick-actions">
+    <button class="quick-action" data-view="videos"><span>▶️</span>Assistir a vídeos</button>
+    <button class="quick-action" data-view="tasks"><span>✓</span>Realizar tarefas</button>
+    <button class="quick-action" data-view="rewards"><span>💰</span>Ver recompensas</button>
+    <button class="quick-action" data-view="withdraw"><span>↗</span>Solicitar levantamento</button>
+  </div>
+
+  <div class="section card">
+    <h3>Atividade recente</h3>
+    <div class="empty-state">
+      <div class="symbol">◷</div>
+      <strong>Sem atividade registada</strong>
+      <p class="muted">O histórico aparecerá aqui quando houver operações reais.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-videos">
+  <h2>Vídeos</h2>
+  <p class="muted">Veja campanhas disponíveis e as suas condições.</p>
+  <div class="card">
+    <div class="empty-state">
+      <div class="symbol">▶️</div>
+      <strong>Não existem vídeos disponíveis</strong>
+      <p class="muted">Os vídeos e recompensas dependem de campanhas reais integradas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-ads">
+  <h2>Anúncios</h2>
+  <p class="muted">Campanhas publicitárias disponíveis para a sua região.</p>
+  <div class="card">
+    <div class="empty-state">
+      <div class="symbol">📣</div>
+      <strong>Não existem campanhas disponíveis</strong>
+      <p class="muted">A validação requer integração com o fornecedor da campanha.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-tasks">
+  <h2>Tarefas</h2>
+  <p class="muted">Consulte instruções, disponibilidade e critérios de validação.</p>
+  <div class="card">
+    <div class="empty-state">
+      <div class="symbol">✓</div>
+      <strong>Não existem tarefas disponíveis</strong>
+      <p class="muted">As tarefas serão apresentadas quando existirem campanhas reais.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-rewards">
+  <h2>Recompensas</h2>
+  <div class="grid grid-3">
+    <div class="card">
+      <span class="muted">Total acumulado</span>
+      <h3>$0,00 USD</h3>
+    </div>
+    <div class="card">
+      <span class="muted">Disponível</span>
+      <h3>$0,00 USD</h3>
+    </div>
+    <div class="card">
+      <span class="muted">Pendente</span>
+      <h3>$0,00 USD</h3>
+    </div>
+  </div>
+  <div class="card section">
+    <div class="empty-state">
+      <div class="symbol">💰</div>
+      <strong>Sem recompensas registadas</strong>
+      <p class="muted">As recompensas só podem ser adicionadas após validação real.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-withdraw">
+  <h2>Levantamentos</h2>
+  <div class="notice info" style="margin-bottom:16px">
+    Os levantamentos dependem da configuração dos métodos de pagamento.
+  </div>
+  <div class="card">
+    <h3>Solicitar levantamento</h3>
+    <div class="field">
+      <label for="withdraw-amount">Valor</label>
+      <input id="withdraw-amount" type="number" min="0" placeholder="0,00" disabled>
+    </div>
+    <div class="field">
+      <label for="withdraw-method">Método de pagamento</label>
+      <select id="withdraw-method" disabled>
+        <option>Configure os métodos suportados</option>
+      </select>
+    </div>
+    <button class="btn" disabled>Solicitar levantamento</button>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-history">
+  <h2>Histórico</h2>
+  <div class="card table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Atividade</th>
+          <th>Valor</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" class="muted">Ainda não existem registos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-profile">
+  <h2>Perfil</h2>
+  <div class="card">
+    <div class="field">
+      <label>Nome completo</label>
+      <input id="profile-name" placeholder="Não carregado" disabled>
+    </div>
+    <div class="field">
+      <label>Nome de utilizador</label>
+      <input id="profile-username" placeholder="Não carregado" disabled>
+    </div>
+    <div class="field">
+      <label>E-mail</label>
+      <input id="profile-email" placeholder="Não carregado" disabled>
+    </div>
+    <div class="field">
+      <label>País</label>
+      <input id="profile-country" placeholder="Não carregado" disabled>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-notifications">
+  <h2>Notificações</h2>
+  <div class="card">
+    <div class="empty-state">
+      <div class="symbol">🔔</div>
+      <strong>Sem notificações</strong>
+      <p class="muted">As notificações serão apresentadas quando houver eventos reais na conta.</p>
+    </div>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-support">
+  <h2>Ajuda e suporte</h2>
+  <div class="grid grid-2">
+    <div class="card faq">
+      <h3>Perguntas frequentes</h3>
+      <details>
+        <summary>Como criar uma conta?</summary>
+        <p class="muted">Use o formulário de cadastro e preencha as etapas solicitadas.</p>
+      </details>
+      <details>
+        <summary>Quando uma recompensa é confirmada?</summary>
+        <p class="muted">Após a validação da atividade pelo sistema responsável.</p>
+      </details>
+      <details>
+        <summary>Como pedir ajuda?</summary>
+        <p class="muted">Utilize o formulário de contacto.</p>
+      </details>
+    </div>
+
+    <form class="card" id="support-form">
+      <h3>Contactar o suporte</h3>
+      <div class="field">
+        <label for="support-subject">Assunto</label>
+        <input id="support-subject" required>
+      </div>
+      <div class="field">
+        <label for="support-email">E-mail de contacto</label>
+        <input id="support-email" type="email" required>
+      </div>
+      <div class="field">
+        <label for="support-message">Mensagem</label>
+        <textarea id="support-message" required></textarea>
+      </div>
+      <button class="btn" type="submit">Enviar mensagem</button>
+    </form>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-settings">
+  <h2>Definições</h2>
+  <div class="card">
+    <p>Segurança da conta, palavra-passe, notificações, idioma, privacidade e termos.</p>
+    <button class="btn btn-outline" id="logout-button">Sair da conta</button>
+  </div>
+</section>
+
+<section class="app-view hidden" id="view-admin">
+  <h2>Painel administrativo</h2>
+  <div class="notice">
+    O acesso administrativo necessita de autenticação e permissões próprias.
+  </div>
+  <div class="grid grid-3 section">
+    <div class="card">
+      <h3>Utilizadores</h3>
+      <p class="muted">Gestão de contas.</p>
+    </div>
+    <div class="card">
+      <h3>Países e preços</h3>
+      <p class="muted">Moçambique: 350 MZN.</p>
+    </div>
+    <div class="card">
+      <h3>Pagamentos</h3>
+      <p class="muted">Integração do fornecedor.</p>
+    </div>
+    <div class="card">
+      <h3>Vídeos e anúncios</h3>
+      <p class="muted">Campanhas disponíveis.</p>
+    </div>
+    <div class="card">
+      <h3>Tarefas</h3>
+      <p class="muted">Validação e aprovação.</p>
+    </div>
+    <div class="card">
+      <h3>Levantamentos</h3>
+      <p class="muted">Processamento de pagamentos.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+"use strict";
+
+/* CONFIGURAÇÕES PRINCIPAIS */
+
+const checkoutUrl =
+"https://pagar.co.mz/p/adsterra-transforme-o-seu-trafego-em-oportunidad-nnaxvn";
+
+/* LINK OFICIAL DO TIKTOK */
+const tiktokUrl = "https://fcoin-co.vercel.app/";
+
+const DEMO_PIN = "222222";
+const CHECKOUT_PRICE = 350;
+const CHECKOUT_CURRENCY = "MZN";
+
+const countries = {
+  MZ:{name:"Moçambique",currency:"MZN",price:"350,00 MZN",configured:true},
+  AO:{name:"Angola",currency:"AOA",price:"A confirmar",configured:false},
+  PT:{name:"Portugal",currency:"EUR",price:"A confirmar",configured:false},
+  BR:{name:"Brasil",currency:"BRL",price:"A confirmar",configured:false},
+  ZA:{name:"África do Sul",currency:"ZAR",price:"A confirmar",configured:false},
+  US:{name:"Estados Unidos",currency:"USD",price:"A confirmar",configured:false},
+  GB:{name:"Reino Unido",currency:"GBP",price:"A confirmar",configured:false},
+  NG:{name:"Nigéria",currency:"NGN",price:"A confirmar",configured:false},
+  KE:{name:"Quénia",currency:"KES",price:"A confirmar",configured:false}
+};
+
+const $ = (selector,root=document) => root.querySelector(selector);
+const $$ = (selector,root=document) => [...root.querySelectorAll(selector)];
+
+let signupStep = 1;
+const totalSteps = 5;
+let processingNow = false;
+let checkoutActive = false;
+let checkoutHistoryState = false;
+
+/* MENSAGENS */
+
+function toast(message){
+  const box=$("#toast");
+  box.textContent=message;
+  box.classList.remove("hidden");
+
+  clearTimeout(toast.timer);
+  toast.timer=setTimeout(()=>{
+    box.classList.add("hidden");
+  },3600);
+}
+
+/* PROCESSAMENTO ENTRE ETAPAS */
+
+function processing(message,duration=2200){
+  return new Promise(resolve=>{
+    const overlay=document.createElement("div");
+    overlay.className="processing-screen";
+
+    const spinner=document.createElement("div");
+    spinner.className="spinner";
+
+    const title=document.createElement("h2");
+    title.style.color="white";
+    title.textContent="MODE EARN APP";
+
+    const description=document.createElement("p");
+    description.textContent=message;
+
+    const subtitle=document.createElement("small");
+    subtitle.textContent="Aguarde enquanto processamos...";
+
+    overlay.append(spinner,title,description,subtitle);
+    document.body.appendChild(overlay);
+
+    setTimeout(()=>{
+      overlay.remove();
+      resolve();
+    },duration);
+  });
+}
+
+/* NAVEGAÇÃO ENTRE PÁGINAS */
+
+function showPage(id,options={}){
+  if(checkoutActive && id!=="checkout" && !options.force){
+    const leave=confirm(
+      "Está no checkout. Tem a certeza de que deseja sair desta página?"
+    );
+
+    if(!leave)return;
+
+    closeCheckout(false);
+  }
+
+  $$(".page").forEach(page=>{
+    page.classList.toggle("active",page.id===id);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showAppView(view){
+  if(checkoutActive){
+    const leave=confirm(
+      "Está no checkout. Deseja sair e voltar à aplicação?"
+    );
+
+    if(!leave)return;
+
+    closeCheckout(false);
+  }
+
+  $$(".app-view").forEach(section=>{
+    section.classList.toggle("hidden",section.id!==`view-${view}`);
+  });
+
+  $$(".nav-link").forEach(button=>{
+    button.classList.toggle("selected",button.dataset.view===view);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* NAVEGAÇÃO DOS BOTÕES */
+
+document.addEventListener("click",event=>{
+  const pageButton=event.target.closest("[data-page]");
+
+  if(pageButton){
+    showPage(pageButton.dataset.page);
+    return;
+  }
+
+  const viewButton=event.target.closest("[data-view]");
+
+  if(viewButton){
+    showAppView(viewButton.dataset.view);
+  }
+});
+
+/* ETAPAS DO CADASTRO */
+
+function renderStep(){
+  $$(".signup-step").forEach(step=>{
+    step.classList.toggle(
+      "hidden",
+      Number(step.dataset.step)!==signupStep
+    );
+  });
+
+  $("#signup-progress").style.width=
+    `${signupStep/totalSteps*100}%`;
+
+  $("#step-label").textContent=
+    `Etapa ${signupStep} de ${totalSteps}`;
+
+  $$(".step-dot").forEach((dot,index)=>{
+    dot.classList.toggle("done",index<signupStep);
+  });
+
+  $("#signup-back").classList.toggle("hidden",signupStep===1);
+
+  $("#signup-next").textContent=
+    signupStep===1?"Começar agora":
+    signupStep===5?"Continuar para pagamento":
+    "Continuar";
+
+  if(signupStep===5)updateReview();
+}
+
+/* VALIDAR ETAPA ATUAL */
+
+function validateCurrentStep(){
+  const current=$(`.signup-step[data-step="${signupStep}"]`);
+
+  const fields=$$("input[required],select[required]",current);
+
+  for(const field of fields){
+    if(!field.checkValidity()){
+      field.reportValidity();
+      return false;
+    }
+  }
+
+  if(signupStep===2 &&
+     $("#password").value!==$("#confirmPassword").value){
+    toast("As palavras-passe não coincidem.");
+    $("#confirmPassword").focus();
+    return false;
+  }
+
+  if(signupStep===3){
+
+    if($("#accessCode").value!==$("#confirmCode").value){
+      toast("Os PINs não coincidem.");
+      $("#confirmCode").focus();
+      return false;
+    }
+
+    if(!/^[0-9]{6}$/.test($("#accessCode").value)){
+      toast("O PIN deve conter seis dígitos.");
+      return false;
+    }
+
+    if(!countries[$("#country").value]){
+      toast("Selecione um país.");
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/* RESUMO DO CADASTRO */
+
+function updateReview(){
+  const country=countries[$("#country").value];
+
+  $("#review-name").textContent=$("#fullName").value||"—";
+  $("#review-username").textContent=$("#username").value||"—";
+  $("#review-email").textContent=$("#email").value||"—";
+  $("#review-country").textContent=country?country.name:"—";
+  $("#review-currency").textContent=country?country.currency:"—";
+  $("#review-price").textContent=country?country.price:"—";
+}
+
+/* DADOS DO UTILIZADOR */
+
+function getAccount(){
+  try{
+    return JSON.parse(localStorage.getItem("modeEarnAccount")||"null");
+  }catch(error){
+    return null;
+  }
+}
+
+function saveAccount(account){
+  localStorage.setItem("modeEarnAccount",JSON.stringify(account));
+}
+
+/* ABRIR CHECKOUT LOCAL */
+
+function openCheckout(){
+  const account=getAccount();
+  const countryCode=account?.country||"MZ";
+  const country=countries[countryCode]||countries.MZ;
+
+  $("#checkout-country").textContent=country.name;
+  $("#checkout-currency").textContent=country.currency;
+  $("#checkout-status").textContent="Pendente";
+
+  checkoutActive=true;
+
+  if(!checkoutHistoryState){
+    history.pushState(
+      {modeEarnCheckout:true},
+      "",
+      "#checkout"
+    );
+    checkoutHistoryState=true;
+  }
+
+  showPage("checkout",{force:true});
+}
+
+/* FECHAR CHECKOUT */
+
+function closeCheckout(updateHistory=true){
+  checkoutActive=false;
+
+  if(updateHistory && checkoutHistoryState){
+    checkoutHistoryState=false;
+
+    if(history.state?.modeEarnCheckout){
+      history.back();
+    }
+  }else{
+    checkoutHistoryState=false;
+  }
+
+  showPage("home",{force:true});
+}
+
+/* CONTROLO DO BOTÃO VOLTAR DO NAVEGADOR */
+
+window.addEventListener("popstate",()=>{
+  if(checkoutActive){
+    const leave=confirm(
+      "Tem a certeza de que deseja sair do checkout?"
+    );
+
+    if(!leave){
+      history.pushState(
+        {modeEarnCheckout:true},
+        "",
+        "#checkout"
+      );
+
+      checkoutHistoryState=true;
+      return;
+    }
+
+    checkoutActive=false;
+    checkoutHistoryState=false;
+    showPage("home",{force:true});
+  }
+});
+
+/* BOTÃO SAIR DO CHECKOUT */
+
+$("#exit-checkout").addEventListener("click",()=>{
+  const leave=confirm(
+    "Tem a certeza de que deseja sair do pagamento e voltar à página inicial?"
+  );
+
+  if(!leave)return;
+
+  closeCheckout(true);
+});
+
+/* CONTINUAR PARA O PAGAMENTO EXTERNO */
+
+$("#continue-payment").addEventListener("click",async()=>{
+  if(processingNow)return;
+
+  const button=$("#continue-payment");
+  button.disabled=true;
+  processingNow=true;
+
+  try{
+    await processing("A preparar o encaminhamento para o pagamento.");
+
+    window.location.assign(checkoutUrl);
+
+  }finally{
+    processingNow=false;
+    button.disabled=false;
+  }
+});
+
+/* AVANÇAR NO CADASTRO */
+
+$("#signup-next").addEventListener("click",async()=>{
+  if(processingNow)return;
+  if(!validateCurrentStep())return;
+
+  processingNow=true;
+
+  const button=$("#signup-next");
+  button.disabled=true;
+
+  try{
+
+    if(signupStep<totalSteps){
+
+      await processing(
+        "A validar as informações da etapa "+signupStep+"."
+      );
+
+      signupStep++;
+      renderStep();
+      return;
+    }
+
+    const selectedCountry=countries[$("#country").value];
+
+    if(!selectedCountry.configured){
+      toast("Checkout ainda não configurado para este país.");
+      return;
+    }
+
+    await processing(
+      "Cadastro concluído. A preparar o pagamento."
+    );
+
+    const account={
+      name:$("#fullName").value.trim(),
+      username:$("#username").value.trim(),
+      email:$("#email").value.trim(),
+      country:$("#country").value,
+      status:"pending",
+      createdAt:new Date().toISOString()
+    };
+
+    saveAccount(account);
+
+    openCheckout();
+
+  }finally{
+    processingNow=false;
+    button.disabled=false;
+  }
+});
+
+/* VOLTAR NO CADASTRO */
+
+$("#signup-back").addEventListener("click",()=>{
+  if(signupStep>1){
+    signupStep--;
+    renderStep();
+  }
+});
+
+/* ATUALIZAR PAÍS */
+
+$("#country").addEventListener("change",event=>{
+  const selected=countries[event.target.value];
+
+  $("#country-note").textContent=selected
+    ?`${selected.name}: moeda ${selected.currency}. Preço: ${selected.price}.`
+    :"O seu país determina a moeda e as opções de pagamento.";
+
+  if(signupStep===5)updateReview();
+});
+
+/* LOGIN COM PIN E REDIRECIONAMENTO PARA O TIKTOK */
+
+$("#login-form").addEventListener("submit",async event=>{
+  event.preventDefault();
+
+  if(processingNow)return;
+
+  const pin=$("#login-pin").value;
+
+  if(!/^[0-9]{6}$/.test(pin)){
+    toast("Introduza um PIN de seis dígitos.");
+    return;
+  }
+
+  if(pin!==DEMO_PIN){
+    toast("PIN incorreto. Verifique e tente novamente.");
+    $("#login-pin").value="";
+    $("#login-pin").focus();
+    return;
+  }
+
+  processingNow=true;
+
+  const button=event.target.querySelector('button[type="submit"]');
+  button.disabled=true;
+
+  try{
+    await processing("PIN validado. A abrir o ...",2000);
+
+    /*
+      Depois da validação do PIN, o utilizador
+      é encaminhado diretamente para o .
+
+      O cadastro e o checkout continuam separados
+      e mantêm o seu funcionamento original.
+    */
+
+    window.location.assign(tiktokUrl);
+
+  }finally{
+    processingNow=false;
+    button.disabled=false;
+  }
+});
+
+/* FORMULÁRIO DE SUPORTE */
+
+$("#support-form").addEventListener("submit",event=>{
+  event.preventDefault();
+
+  toast("Formulário demonstrativo: configure o serviço de suporte.");
+  event.target.reset();
+});
+
+/* PERFIL */
+
+function loadProfile(){
+  const account=getAccount();
+
+  if(!account)return;
+
+  $("#profile-name").value=account.name||"";
+  $("#profile-username").value=account.username||"";
+  $("#profile-email").value=account.email||"";
+  $("#profile-country").value=
+    countries[account.country]?.name||"";
+}
+
+/* SAIR DA CONTA */
+
+$("#logout-button").addEventListener("click",()=>{
+  const leave=confirm("Deseja sair da sua conta?");
+
+  if(!leave)return;
+
+  showPage("home",{force:true});
+  toast("Saiu da área da aplicação.");
+});
+
+/* ANO AUTOMÁTICO */
+
+$$(".year").forEach(element=>{
+  element.textContent=new Date().getFullYear();
+});
+
+/* INICIALIZAÇÃO */
+
+renderStep();
+loadProfile();
+
+</script>
+
+</body>
+</html>
